@@ -1,0 +1,86 @@
+<template>
+<div>
+  <el-divider style="margin-bottom:20px"></el-divider>
+  <el-row>
+    <div class="title">Find Similar Entities</div>
+  </el-row>
+<el-form ref="form" :model="form" label-width="150px">
+<el-row>
+ <el-form-item label="Search An Entity">
+    <el-col :span="16">
+    <el-input size="medium" v-model="form.name" placeholder="input the full name of the entity"></el-input>
+    </el-col>
+  </el-form-item>
+</el-row>
+<el-row>
+  <el-form-item>
+    <el-button @click="search();dialog1 = true" type="primary">Search</el-button>
+  </el-form-item>
+</el-row>
+</el-form>
+<el-dialog
+ title="Similar Entities"
+ :visible.sync="dialog1"
+ width="90%"
+>
+<el-row>
+<el-table
+    :data="entitylist"
+    stripe
+    style="width: 100%">
+    <el-table-column
+      prop="NO"
+      label="NUMBER"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="entityname"
+      label="ENTITY NAME"
+      width="180">
+    </el-table-column>
+  </el-table>
+</el-row>
+<span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="dialog1 = false">GOT IT</el-button>
+</span>
+</el-dialog>
+</div>
+
+</template>
+
+<script>
+import { search } from '@/api/table'
+
+export default {
+  data() {
+    return {
+      form: {
+        name: ''
+      },
+      entitylist: [],
+      dialog1: false
+
+    }
+  },
+  methods: {
+    search() {
+      search({ entityName: this.form.name }).then(response => {
+        this.entitylist = [{ NO: '1', entityname: response.data.first }, { NO: '2', entityname: response.data.second }, { NO: '3', entityname: response.data.third }]
+      })
+    }
+  }
+}
+</script>
+<style lang="scss">
+.text {
+  font-size: 16px;
+  text-align: center;
+}
+.title {
+  font-size: 26px;
+  margin: 0px auto 40px auto;
+  text-align: center;
+  font-weight: bold;
+}
+</style>
+
