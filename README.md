@@ -5,7 +5,9 @@ https://github.com/PanJiaChen/vue-admin-template.git
 ## Build Setup
 
 ```bash
-# after cloning the project
+# clone the project
+
+git clone https://github.com/ZCXu1/provgnn-front.git
 
 # install dependency
 npm install

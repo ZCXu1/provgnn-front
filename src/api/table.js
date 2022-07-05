@@ -8,3 +8,10 @@ export function search(data) {
   })
 }
 
+export function search2(data) {
+  return request({
+    url: '/getjudge',
+    method: 'post',
+    data
+  })
+}
